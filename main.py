@@ -26,7 +26,18 @@ def index():
         cur.close()
         return 'success'
     else:
+
         return render_template("index.html")
+
+@app.route('/users')
+def users():
+    cur = mysql.connection.cursor()
+    resultValue= cur.execute("select * from users")
+
+    if resultValue>0:
+        userDetails=cur.fetchall()
+
+        return render_template('users.html',userDetails=userDetails)
 
 
 if __name__ == '__main__':
